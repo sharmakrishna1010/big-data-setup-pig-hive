@@ -1,34 +1,101 @@
-# big-data-setup-pig-hive
+# Big Data Environment Setup – Hadoop, Pig & Hive
 
-You can launch a complete Hadoop, Pig, and Hive environment inside GitHub Codespaces in about two minutes using Docker, which comes preinstalled in every Codespace.
+Set up a complete **Hadoop, Apache Pig, and Apache Hive environment** inside GitHub Codespaces using Docker. No manual installation or complex configuration is required.
 
-Step 1: Open a Blank Codespace
+## Step 1: Open a Blank Codespace
 
-1. Log into GitHub Codespaces with your free GitHub account (includes 60 free core hours/month).
-2. Under Explore quick start templates, click Use this template on the Blank template to spin up a cloud Linux terminal in your browser.
+1. Log in to [GitHub Codespaces](https://github.com/codespaces) using your GitHub account.
+2. Under **Explore quick start templates**, select the **Blank** template.
+3. Launch your Codespace to open a cloud-based Linux development environment.
 
-Step 2: Run the Prebuilt Hadoop + Pig + Hive Container
+**Note:** GitHub's free plan includes 60 core hours per month.
 
-Once the terminal loads at the bottom of the screen, paste and run this single command to pull and start a preconfigured container with Hadoop, Pig, and Hive already wired together:
-bash
-'''bash
+## Step 2: Launch the Preconfigured Docker Container
+
+Once the Codespaces terminal loads, execute the following command:
+
+```bash
 docker run -it --name bigdata-lab suhothayan/hadoop-spark-pig-hive:2.9.2 bash
-'''
-Use code with caution.
-(Wait about 1–2 minutes for the image to download and drop you into the root@...:/# container prompt.)
+```
 
-Step 3: Launch Pig Latin or HiveQL
+**What this command does:**
+- `docker run` – Creates and starts a Docker container.
+- `-it` – Enables interactive terminal access.
+- `--name bigdata-lab` – Assigns the container the name `bigdata-lab`.
+- `suhothayan/hadoop-spark-pig-hive:2.9.2` – Specifies the preconfigured Docker image.
+- `bash` – Opens a Bash shell inside the container.
 
-Inside the container shell, both tools are ready to run immediately:
-• Start Apache Pig (Grunt shell):bash
-'''bash
+Wait approximately 1–2 minutes for the Docker image to download. Once started, you should see a container prompt similar to:
+
+```bash
+root@<container-id>:/#
+```
+
+**Your Hadoop, Pig, and Hive environment is now available inside the container.**
+
+## Step 3: Launch Apache Pig and Apache Hive
+
+Both tools are preconfigured in the container and can be launched directly from its terminal.
+
+### A. Apache Pig (Grunt Shell)
+
+To start Apache Pig:
+
+```bash
 pig
-'''
-Use code with caution.
-(To run Pig in fast local mode without waiting for MapReduce jobs, use pig -x local instead.)
-• Start Apache Hive (HiveQL prompt):bash
-'''bash
+```
+
+This opens the **Pig Grunt shell**, where you can execute Pig Latin commands.
+
+To run Pig in local mode instead of using Hadoop MapReduce:
+
+```bash
+pig -x local
+```
+
+### B. Apache Hive (HiveQL)
+
+To start Apache Hive:
+
+```bash
 hive
-'''
-Use code with caution.
-(If Hive throws a metastore error on first launch, exit with quit; and run $HIVE_HOME/bin/schematool -dbType derby -initSchema once, then type hive again.)
+```
+
+This opens the **Hive CLI**, where you can execute HiveQL queries.
+
+**Troubleshooting: Hive Metastore Initialization**
+
+On the first launch, Hive may throw a metastore or schema initialization error.
+
+To resolve this:
+
+1. Exit the Hive CLI:
+
+   ```sql
+   quit;
+   ```
+
+2. Initialize the Derby metastore schema:
+
+   ```bash
+   $HIVE_HOME/bin/schematool -dbType derby -initSchema
+   ```
+
+3. Launch Hive again:
+
+   ```bash
+   hive
+   ```
+
+## Quick Reference
+
+| Task | Command |
+|---|---|
+| Start Pig | `pig` |
+| Start Pig in local mode | `pig -x local` |
+| Start Hive | `hive` |
+| Initialize Hive Metastore | `$HIVE_HOME/bin/schematool -dbType derby -initSchema` |
+
+---
+
+**Result:** You now have a ready-to-use cloud environment for practising Hadoop, Pig Latin, and HiveQL without installing these tools individually on your local machine.
